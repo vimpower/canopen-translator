@@ -52,7 +52,7 @@ class CandumpDefaultPattern(BasePattern):
     # vcan0  1F0   [8]  00 00 00 00 00 00 1B C1   '.......Á'
     #(Ignore anything after the end of the data to work with candump's ASCII decoding)
     pattern = re.compile(
-        r'^\s*?(?P<channel>[a-zA-Z0-9]+)\s+(?P<can_id>[0-9A-F]+)\s+\[\d+\]\s*(?P<can_data>[0-9A-F ]*).*?$')
+        r'\s*?(?P<channel>\w+)\s+(?P<can_id>[0-9A-F]+)\s+\[\d+\]\s*(?P<can_data>[0-9A-F ]*).*?$')
 
     @staticmethod
     def unpack(match_object):
@@ -74,7 +74,7 @@ class CandumpTimestampedPattern(BasePattern):
     # (000.000000)  vcan0  0C8   [8]  31 30 30 2E 35 20 46 4D   '100.5 FM'
     #(Ignore anything after the end of the data to work with candump's ASCII decoding)
     pattern = re.compile(
-        r'^\s*?\((?P<timestamp>[\d.]+)\)\s+(?P<channel>[a-zA-Z0-9]+)\s+(?P<can_id>[0-9A-F]+)\s+\[\d+\]\s*(?P<can_data>[0-9A-F ]*).*?$')
+        r'^\s*?\((?P<timestamp>[\d.]+)\)\s+(?P<channel>\w+)\s+(?P<can_id>[0-9A-F]+)\s+\[\d+\]\s*(?P<can_data>[0-9A-F ]*).*?$')
 
     @staticmethod
     def unpack(match_object):
@@ -99,7 +99,7 @@ class CandumpDefaultLogPattern(BasePattern):
     # (1579857014.345944) can2 486#82967A6B006B07F8
     # (1613656104.501098) can2 14C##16A0FFE00606E022400000000000000A0FFFF00FFFF25000600000000000000FE
     pattern = re.compile(
-        r'^\s*?\((?P<timestamp>[\d.]+?)\)\s+?(?P<channel>[a-zA-Z0-9]+)\s+?(?P<can_id>[0-9A-F]+?)#(#[0-9A-F])?(?P<can_data>([0-9A-Fa-f]{2})*?$).*?$')
+        r'^\s*?\((?P<timestamp>[\d.]+?)\)\s+?(?P<channel>[\w]+)\s+?(?P<can_id>[0-9A-F]+?)#(#[0-9A-F])?(?P<can_data>([0-9A-Fa-f]{2})*?$).*?$')
 
     @staticmethod
     def unpack(match_object):
@@ -121,7 +121,7 @@ class CandumpAbsoluteLogPattern(BasePattern):
     # (2020-12-19 12:04:45.485261)  vcan0  0C8   [8]  31 30 30 2E 35 20 46 4D   '100.5 FM'
     #(Ignore anything after the end of the data to work with candump's ASCII decoding)
     pattern = re.compile(
-        r'^\s*?\((?P<timestamp>\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d+)\)\s+(?P<channel>[a-zA-Z0-9]+)\s+(?P<can_id>[0-9A-F]+)\s+\[\d+\]\s*(?P<can_data>[0-9A-F ]*).*?$')
+        r'^\s*?\((?P<timestamp>[\d\-:\. ]+)\)\s+(?P<channel>[a-zA-Z0-9]+)\s+(?P<can_id>[0-9A-F]+)\s+\[\d+\]\s*(?P<can_data>[0-9A-F ]*).*?$')
 
     @staticmethod
     def unpack(match_object):
